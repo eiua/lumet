@@ -1,2 +1,2 @@
-#aiunesta
-v= 36*3
+#tttttt
+v= 6 * 3
