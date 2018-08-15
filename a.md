@@ -1,7 +1,7 @@
 # Ah que coucou!
 Ah que ici c'est johnny qui teste la résolution des conflits entre
 plusieurs branches :)
-Alors allons-y !!
 
-Ah que nous voila dans la branche master
-Et ah que c'est la fête !
+Ah que nous voila dans la branche test
+Et ah que c'est la fête ! mais j'ajoute une fin de phrase
+et Ah que vla ty pas une ligne de plus mais la quatrième ligne est effacée!
