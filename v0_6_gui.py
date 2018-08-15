@@ -86,20 +86,6 @@ class Application(Tk):
         
         self.chk = self.ck.get()
         self.event_generate('<Control-Z>')
-    
-    #def ajouter_une_heure(self):
-        
-     #   self.echh = self.echh + 1
-        
-      #  if self.echh == 40:
-       #     self.echh = 0
-        
-    #def enlever_une_heure(self):
-        
-     #   self.echh = self.echh - 1
-        
-      #  if self.echh == -1:
-       #     self.echh = 39
             
     def dessiner_TPW850_Jet(self):
         
