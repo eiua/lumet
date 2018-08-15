@@ -69,8 +69,6 @@ class Application(Tk):
         Scale_2 = Scale(self,length = 50, orient = HORIZONTAL, sliderlength = 5, 
               label = "Zoom?",from_ = 0, to = 3, tickinterval = 1, resolution = 1,
               showvalue = 1, command = self.regler_zoom_arp_01).pack()
-        #B_12 = Button(self, text ="Écheance suivante", command =self.ajouter_une_heure).pack(side=RIGHT)
-        #B_11 = Button(self, text ="Écheance précédente", command =self.enlever_une_heure).pack(side=LEFT)
     
     def regler_echeance_aro_0025(self,f):
         
