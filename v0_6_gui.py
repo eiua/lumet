@@ -56,6 +56,8 @@ class Application(Tk):
         B_4 = Button(self, text ="Précipitations", command =self.dessiner_Precips).pack()
         B_5 = Button(self, text ="Rayonnement SW descendant", command =self.dessiner_DSW).pack()
         
+#et là paf, à l'emplacement même de texte dans le code test, une phrase bidon!!
+        
         B_tout_1 = Button(self, text ="Dessiner toutes les cartes 1", command =self.dessiner_tout_1).pack()
         B_tout_2 = Button(self, text ="Dessiner toutes les cartes 2", command =self.dessiner_tout_2).pack()
         B_tout_3 = Button(self, text ="Dessiner toutes les cartes 3", command =self.dessiner_tout_3).pack()
