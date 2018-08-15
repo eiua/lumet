@@ -56,8 +56,6 @@ class Application(Tk):
         B_4 = Button(self, text ="Précipitations", command =self.dessiner_Precips).pack()
         B_5 = Button(self, text ="Rayonnement SW descendant", command =self.dessiner_DSW).pack()
         
-        B_totale_1 = Button(self, text ="Charger tout 1", command =self.charger_tout_1).pack()
-        
         B_tout_1 = Button(self, text ="Dessiner toutes les cartes 1", command =self.dessiner_tout_1).pack()
         B_tout_2 = Button(self, text ="Dessiner toutes les cartes 2", command =self.dessiner_tout_2).pack()
         B_tout_3 = Button(self, text ="Dessiner toutes les cartes 3", command =self.dessiner_tout_3).pack()
@@ -69,8 +67,6 @@ class Application(Tk):
         Scale_2 = Scale(self,length = 50, orient = HORIZONTAL, sliderlength = 5, 
               label = "Zoom?",from_ = 0, to = 3, tickinterval = 1, resolution = 1,
               showvalue = 1, command = self.regler_zoom_arp_01).pack()
-        #B_12 = Button(self, text ="Écheance suivante", command =self.ajouter_une_heure).pack(side=RIGHT)
-        #B_11 = Button(self, text ="Écheance précédente", command =self.enlever_une_heure).pack(side=LEFT)
     
     def regler_echeance_aro_0025(self,f):
         
@@ -86,20 +82,6 @@ class Application(Tk):
         
         self.chk = self.ck.get()
         self.event_generate('<Control-Z>')
-    
-    #def ajouter_une_heure(self):
-        
-     #   self.echh = self.echh + 1
-        
-      #  if self.echh == 40:
-       #     self.echh = 0
-        
-    #def enlever_une_heure(self):
-        
-     #   self.echh = self.echh - 1
-        
-      #  if self.echh == -1:
-       #     self.echh = 39
             
     def dessiner_TPW850_Jet(self):
         
@@ -128,12 +110,6 @@ class Application(Tk):
         self.c5 = Carte_DSW(self,self.can,jour="10",mois="08",annee="2018",run="03",echeance=self.echh
                                          ,type_carte="DSW",zoom = self.chk,verification = 0)
         self.c5.envoyer_Carte_Vers_Gui()
-       
-    def charger_tout_1(self):
-        self.totale_1=Arome_0025_Cartes("10","08","2018","03",zoom = 0,verification = 0)
-        #self.totale_1.charger_Tout()
-        #self.totale_1.TPW850_Z15()
-        self.totale_1.T2m()
         
     def dessiner_tout_1(self):
         self.tout_1=Arome_0025_Cartes("10","08","2018","03",zoom = 0,verification = 0)
