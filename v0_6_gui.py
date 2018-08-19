@@ -1,3 +1,9 @@
+# Classes nécéssaires à l'interface graphique de Lumet v0.6
+# Code Python3
+# Licence GPL euia copyleft 
+
+# Import des librairies externes à lumet
+
 #from Tkinter import *
 import matplotlib
 matplotlib.use("TkAgg")
@@ -25,24 +31,31 @@ from matplotlib.figure import Figure
 from tkinter import *
 #from Arpege_05_Cartes import *
 
+# Import des librairies internes à Lumet
+
 from v0_6_Arome_0025_Carte_Pour_Canvas import *
 from v0_6_Aro_0025_Cartes import *
 from v0_6_Arome_0025_Cartes import *
 from v0_6_Arpege_05_Cartes import *
 from v0_6_Arpege_01_Cartes import *
 
+# Classe d'interface graphique, les objets de cette classe sont appelées dans le main du projet.
 
-class Application(Tk):
+class Application(Tk): # Héritière de Tk, cette classe code pour une interface graphique.
 
     def __init__(self):
         
         Tk.__init__(self)        # constructeur de la classe parente
 
+        # Initialisation du canevas qui sera modifié pour créer et afficher les différentes cartes
         self.can = Canvas(self, width =50, height =50, bg ="white")
         self.can.pack(side =TOP, padx =5, pady =5)
         
+        # Initalisation des paramètres d'échéances et de zoom pour les cartes à afficher par lumet.
         self.echh = 0
         self.zoomi = 0
+        
+        # Initalisation de la case à cocher pour le zoom.
         self.chk = 0
         self.ck = IntVar()
         Check_1 = Checkbutton(self,text = "Zoom?",variable = self.ck, command = self.regler_zoom).pack()
@@ -50,19 +63,37 @@ class Application(Tk):
               label = "Échéance de prévision +(**)H:",from_ = 0, to = 39, tickinterval = 6, resolution = 1,
               showvalue = 1, command = self.regler_echeance_aro_0025).pack()
         
+        # Pour Arome 0.025°
+        # Boutons pour les cartes à afficher dans une fenêtre de lumet au zoom et à l'échéance
+        # choisis via l'interface de lumet.
         B_1 = Button(self, text ="Température à 2m", command =self.dessiner_T2m).pack()
         B_2 = Button(self, text ="TPW850hPa + Jet au niveau Z1.5 pvu", command =self.dessiner_TPW850_Jet).pack()
         B_3 = Button(self, text ="Z1.5pvu + Jet au niveau Z1.5 pvu", command =self.dessiner_Z15pvu_Jet).pack()
         B_4 = Button(self, text ="Précipitations", command =self.dessiner_Precips).pack()
         B_5 = Button(self, text ="Rayonnement SW descendant", command =self.dessiner_DSW).pack()
         
+        # Pour Arome 0.025°
+        # Boutons pour le tracé et l'enregistrement de toutes les cartes de toutes les échéances
+        # Chaque carte est tracé avec les deux zooms.
+        # De fait pour le run de 03h, qui a une échéance max de +39h au pas de temps horaire, 
+        # on obtient 40 cartes par paramètres et par type de zoom. Utile pour exporter des animations.
         B_tout_1 = Button(self, text ="Dessiner toutes les cartes 1", command =self.dessiner_tout_1).pack()
         B_tout_2 = Button(self, text ="Dessiner toutes les cartes 2", command =self.dessiner_tout_2).pack()
         B_tout_3 = Button(self, text ="Dessiner toutes les cartes 3", command =self.dessiner_tout_3).pack()
         B_tout_4 = Button(self, text ="Dessiner toutes les cartes 4", command =self.dessiner_tout_4).pack()
         
+        # Pour Arpège 0.5°
+        # Boutons pour le tracé et l'enregistrement de toutes les cartes de toutes les échéances
+        # De fait pour le run de 00h, qui a une échéance max de +102h au pas de temps tri-horaire,
+        # on obtient 31 cartes par paramètres et par type de zoom. Utile pour exporter des animations.
+        B_tout_1 = Button(self, text ="Dessiner toutes les cartes 1", command =self.dessiner_tout_1).pack()
         B_tout_5 = Button(self, text ="Dessiner Arpège 0.5°", command =self.dessiner_tout_Arp_05).pack()
         
+        # Pour Arpège 0.1°
+        # Boutons pour le tracé et l'enregistrement de toutes les cartes de toutes les échéances
+        # Chaque carte est tracé avec les deux zooms.
+        # De fait pour le run de 00h qui a une échéance max de +102h au pas de temps horaire,
+        # on obtient 103 cartes par paramètres et par type de zoom. Utile pour exporter des animations.
         B_tout_6 = Button(self, text ="Dessiner Arpège 0.1°", command =self.dessiner_tout_Arp_01).pack()
         Scale_2 = Scale(self,length = 50, orient = HORIZONTAL, sliderlength = 5, 
               label = "Zoom?",from_ = 0, to = 3, tickinterval = 1, resolution = 1,
@@ -111,6 +142,9 @@ class Application(Tk):
                                          ,type_carte="DSW",zoom = self.chk,verification = 0)
         self.c5.envoyer_Carte_Vers_Gui()
         
+    # les quatres méthodes pour dessiner toutes les cartes Arome 0.025° sont à peu près équilibrées entre elles
+    # pour leur temps de compilation, j'ai essayé de faire en sorte de minimiser le temps total.
+    # Ainsi, en lançant ces quatres méthodes simultanément, j'arrive à réduire le temps total à moins de 10 minutes.
     def dessiner_tout_1(self):
         self.tout_1=Arome_0025_Cartes("10","08","2018","03",zoom = 0,verification = 0)
         self.tout_1.cartes_T2m()
