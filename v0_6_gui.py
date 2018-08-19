@@ -82,6 +82,11 @@ class Application(Tk): # Héritière de Tk, cette classe code pour une interface
         B_tout_3 = Button(self, text ="Dessiner toutes les cartes 3", command =self.dessiner_tout_3).pack()
         B_tout_4 = Button(self, text ="Dessiner toutes les cartes 4", command =self.dessiner_tout_4).pack()
         
+        # Pour Arome 0.025°
+        # méthode en cours de codage pour charger plus rapidement et une bonne fois pour toute les données
+        # au lieu de les ouvrir au fur et à mesure des tracé des cartes.
+        B_totale_1 = Button(self, text ="Charger tout 1", command =self.charger_tout_1).pack()
+        
         # Pour Arpège 0.5°
         # Boutons pour le tracé et l'enregistrement de toutes les cartes de toutes les échéances
         # De fait pour le run de 00h, qui a une échéance max de +102h au pas de temps tri-horaire,
