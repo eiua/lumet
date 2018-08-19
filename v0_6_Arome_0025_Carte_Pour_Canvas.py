@@ -1,3 +1,7 @@
+# classes et méthode pour afficher une seule carte à une échéance et à un zoom donné
+# le tout dans une fenêtre de lumet.
+# Ceci est du code Python3
+
 #from Tkinter import *
 import matplotlib
 matplotlib.use("TkAgg")
@@ -26,40 +30,6 @@ from tkinter import *
 
 class Arome_0025_Carte_Pour_Canvas(Frame):
     """Exploiter les fichiers Arome 0.025°, dessin de cartes usuelles en météo.
-    
-    Copyleft Lucas GRIGIS (code sous licence GPL)
-    
-    #############################################################################
-    
-    Il faut télécharger les fichiers Arome 0.025° SP1 et IP5 (format .grib2)
-    disponibles en téléchargement sur le site de Météo-France:
-    https://donneespubliques.meteofrance.fr/?fond=produit&id_produit=131&id_rubrique=51
-    
-    Ensuite on renome les fichiers:
-    écourter par exemple *12H18H* en *18H*, cas particulier: *00H06H* deviendra *6H*
-    
-    Enregistrer ce présent fichier dans le répertoire racine de votre pojet 
-    (dans lequel sera par example lancé votre session jupyter).
-    
-    Stocker les fichiers de données .grib2 dans un répertoire ./Aro_00025/20602018 
-    (date à modifier à votre convenance, mais respecter le format jourmoisannée).
-    
-    ###############################################################################
-    
-    Exemple d'exécution:
-    
-    ##
-    from Arome_0025_Carte_Pour_Canvas import *
-    #Cartes France entière:
-    c1 = Carte_TPW850_Jet(self,self.can,jour="30",mois="06",annee="2018",run="03",echeance=self.echh
-                                     ,type_carte="TPW850_Z1.5pvu",zoom = 0,verification = 0)
-    c1.envoyer_Carte_Vers_Gui()
-    
-    #Carte zoom région Rhône-Alpes:
-    c1 = Carte_TPW850_Jet(self,self.can,jour="30",mois="06",annee="2018",run="03",echeance=self.echh
-                                     ,type_carte="TPW850_Z1.5pvu",zoom = 1,verification = 0)
-    c1.envoyer_Carte_Vers_Gui(
-    ##
     """
 #self,jour,mois,annee,run,type_carte,zoom
     def __init__(self,jour,mois,annee,run,echeance,type_carte,zoom):
@@ -164,6 +134,21 @@ class Arome_0025_Carte_Pour_Canvas(Frame):
         self.nom_10 = './Aro_00025/' + self.jour + self.mois + self.annee + nom_00 + '_Aro_0025_' + self.jour + self.mois + self.annee + self.run + '_'
         
     def trouver_indice_echeance(self):
+        """
+        Méthode qui ouvre le bon fichier au bon indice à partir d'une valeur d'échéance.
+        
+        Renvoie un fichier ouvert via pygrib et un indice d'échéance (deux de chaque dans le cas de champs à cumul comme les précips et le DSW).
+        
+        Les fichiers bruts sont organisés par échéances, de +00h à +6h, soit 7 échéances, pour le premier fichier grib2.
+        Ensuite chaque fichier contient 6 échéances comme suit : +7h à +12h.
+        
+        Pour accéder au données à la bonne échéance, il faut donc:
+        1 charger le bon fichier
+        2 trouver l'indice dans ce fichier qui correspond à notre échéances donnée.
+        
+        On traduit donc: je veux l'échéance +15h
+        par: voici dans le fichier 13-18h.grib2, ce sera l'indice numéro 3.   
+        """
         
         if self.type_de_carte == "DSW" or self.type_de_carte == "Precips":
             
@@ -275,7 +260,9 @@ class Arome_0025_Carte_Pour_Canvas(Frame):
             return indice_echeance_2,grbs_2
 
     def dessiner_fond_carte(self,lons,lats):
-        
+        """
+        Renvoie un fond de carte géographique sur lequel on tracera le ou les champs météo.
+        """
         lon_0 = lons.mean()
         lat_0 = lats.mean()
         
